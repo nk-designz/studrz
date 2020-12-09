@@ -1,0 +1,10 @@
+body {
+    background-color: slateblue;
+}
+
+.login {
+    margin-top: 30vh;
+    margin-left: 40vw;
+    margin-right: 40vw;
+    margin-bottom: 30vh;
+}

@@ -11,7 +11,7 @@ import (
 // Welcome page
 func Welcome(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		return c.JSON(
 			http.StatusOK,
 			map[string]interface{}{

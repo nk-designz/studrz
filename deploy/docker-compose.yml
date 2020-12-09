@@ -20,6 +20,8 @@ services:
     - "STUDRZ_DBSSL=false"
     - "STUDRZ_TIMEZONE=Europe/Berlin"
     - "STUDRZ_ADMINPASSWORD=start-123"
+    # - "JAEGER_AGENT_HOST=deploy_jaeger-agent_1"
+    # - "JAEGER_AGENT_PORT=6831"
     ports:
     - "42069:42069"
     links:

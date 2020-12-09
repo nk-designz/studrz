@@ -11,9 +11,9 @@ import (
 // ListConsumes returns a list of Consumes
 func ListConsumes(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var consumeList []*Consume
-		if err := db.Table("consumes").Where("deleted_at IS NULL").Order("id ASC").Scan(&consumeList).Error; err != nil {
+		if err := db.Table("consumes").Order("id ASC").Scan(&consumeList).Error; err != nil {
 			return c.JSON(
 				http.StatusInternalServerError,
 				&ErrorMessage{
@@ -30,7 +30,7 @@ func ListConsumes(db *gorm.DB) echo.HandlerFunc {
 // GetConsume returns a specific Consume
 func GetConsume(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return c.JSON(
@@ -43,7 +43,7 @@ func GetConsume(db *gorm.DB) echo.HandlerFunc {
 			)
 		}
 		cr := new(Consume)
-		if err := db.Table("questionair_results").Where("id = ?", id).Scan(&cr).Error; err != nil {
+		if err := db.Table("consumes").Where("id = ?", id).Scan(&cr).Error; err != nil {
 			return c.JSON(
 				http.StatusInternalServerError,
 				&ErrorMessage{
@@ -60,7 +60,7 @@ func GetConsume(db *gorm.DB) echo.HandlerFunc {
 // CreateConsume creates consume
 func CreateConsume(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		cr := new(Consume)
 		if err := c.Bind(&cr); err != nil {
 			c.Logger().Warn(err)
@@ -91,7 +91,7 @@ func CreateConsume(db *gorm.DB) echo.HandlerFunc {
 // DeleteConsume deletes a specific consume
 func DeleteConsume(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			c.Logger().Warn(err)
@@ -104,8 +104,8 @@ func DeleteConsume(db *gorm.DB) echo.HandlerFunc {
 				},
 			)
 		}
-		cr := new(QuestionairResult)
-		if err := db.Table("questionair_results").Where("id = ?", id).Scan(&cr); err != nil {
+		cr := new(Consume)
+		if err := db.Table("consumes").Where("id = ?", id).Scan(&cr); err != nil {
 			c.Logger().Warn(err)
 			return c.JSON(
 				http.StatusBadRequest,
@@ -134,7 +134,7 @@ func DeleteConsume(db *gorm.DB) echo.HandlerFunc {
 // GetConsumeByQuestionairResult returns all consumes of a qr
 func GetConsumeByQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, c.Request().Header.Get(echo.HeaderOrigin))
+		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var cList []Consume
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
@@ -152,7 +152,7 @@ func GetConsumeByQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 			return c.JSON(
 				http.StatusInternalServerError,
 				&ErrorMessage{
-					Code: http.StatusInternalServerError,
+					Code:    http.StatusInternalServerError,
 					Message: "Not found by id",
 					Payload: id,
 				},

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/labstack/echo-contrib/jaegertracing"
+	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -34,6 +36,14 @@ func main() {
 			DatabaseBasicAuth(db),
 		),
 	)
+
+	// Add tracing
+	j := jaegertracing.New(e, nil)
+	defer j.Close()
+	// Add /metrics Endpoint
+	p := prometheus.NewPrometheus("echo", nil)
+	p.Use(e)
+
 	SetAdminUser(db, c)
 	// Routes
 	RegisterRoutes(
