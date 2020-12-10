@@ -6,6 +6,8 @@ services:
     - "POSTGRES_PASSWORD=mysecretpassword"
     - "POSTGRES_DB=study"
     - "POSTGRES_USER=rzstud"
+    volumes:
+    - studrz_db:/var/lib/postgresql/data/
     ports:
     - "5432:5432"
   api:
@@ -33,3 +35,6 @@ networks:
     ipam:
       config:
         - subnet: 172.16.57.0/24
+
+volumes:
+  studrz_db:
