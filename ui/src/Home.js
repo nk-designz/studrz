@@ -7,7 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Users from './Users';
+import Results from './Results';
 import './Home.css'
+import Consume from './Consume';
 
 function a11yProps(index) {
     return {
@@ -56,17 +58,17 @@ function Home(props) {
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Users" {...a11yProps(0)} />
                     <Tab label="Results" {...a11yProps(1)} />
-                    <Tab label="Statistics" {...a11yProps(2)} />
+                    <Tab label="Consumes" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
                 <Users></Users>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <Results></Results>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <Consume></Consume>
             </TabPanel>
         </div>
 }

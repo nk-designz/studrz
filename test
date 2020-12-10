@@ -1,0 +1,5 @@
+curl -H "Content-Type: application/json" -X POST steffi:password@localhost:42069/api/consume -d '{ "questionair_result_id": 2, "name": "cocaine", "rate": 1}' | jq
+
+curl -H "Content-Type: application/json" -X POST admin:start-123@localhost:42069/api/user -d '{ "id": 3, "username": "dörk" , "password" : "1234" , "role" : 2 }' | jq
+
+curl -H "Content-Type: application/json" -X POST steffi:password@localhost:42069/api/result -d '{ "id": 1, "score": 78, "user_id": 3}' | jq

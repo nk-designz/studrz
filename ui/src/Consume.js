@@ -8,20 +8,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import MenuItem from '@material-ui/core/MenuItem';
-
-const getRoleText = role => {
-    switch(role) {
-        case 0:
-            return "Admin";
-        case 1:
-            return "Reseacher";
-        case 2:
-            return "Subject";
-        default:
-            return "None";
-    }
-}
 
 const useFormInput = initialValue => {
     const [value, setValue] = useState(initialValue);
@@ -35,11 +21,11 @@ const useFormInput = initialValue => {
     }
   }
 
-function addUser(user) {
+function addConsume(consume) {
     axios({
         method: 'post',
-        url: "http://localhost:42069/api/user",
-        data: user,
+        url: "http://localhost:42069/api/consume",
+        data: consume,
         auth: Auth
     }).then( response => { 
         console.log(response) 
@@ -48,14 +34,14 @@ function addUser(user) {
     })
 }
 
-function Users(props) {
-    const newUsername   = useFormInput('');
-    const newPassword   = useFormInput('');
-    const newRole       = useFormInput(2);
-    const newBirthday   = useFormInput('');
+function Consume(props) {
+    const newId          = useFormInput(0);
+    const newDrug      = useFormInput('');
+    const newRate = useFormInput(0);
+    const newConsumeId = useFormInput(0);
 
     const [open, setOpen] = useState(false);
-    const [users, setUsers] = useState([])
+    const [consumes, setConsumes] = useState([])
     const openNewUserWindow = () => {
         setOpen(true);
     };
@@ -63,67 +49,59 @@ function Users(props) {
         setOpen(false);
     };
     const closeAndSend = () => {
-        addUser({
-            username: newUsername.value,
-            password: newPassword.value,
-            birthday: newBirthday.value,
-            role: newRole.value
+        addConsume({
+            id: parseInt(newId.value),
+            name: newDrug.value,
+            rate: parseInt(newRate.value),
+            questionair_result_id:  parseInt(newConsumeId.value)
         })
         closeNewUserWindow()
     }
-    const listUsers = () => {
+    const listConsumes = () => {
         axios({
             method: 'get',
-            url: "http://localhost:42069/api/user",
+            url: "http://localhost:42069/api/consume",
             auth: Auth
-        }).then( response => { setUsers(response.data); console.log(response) }).catch(error => {
+        }).then( response => { setConsumes(response.data); console.log(response) }).catch(error => {
             console.log(error)
         })
     }
     const columns = [
         { field: "id", headerName: 'ID', width: 70},
-        { field: "username", headerName: 'Username', width: 130 },
-        { field: "role", headerName: 'Role', width: 130 },
-        { field: "birthday", headerName: 'Birthday', width: 200 }
+        { field: "name", headerName: 'User ID', width: 130 },
+        { field: "rate", headerName: 'Score', width: 130 },
+        { field: "questionair_result_id", headerName: 'Result ID', width: 130 }
     ]
-    const roleUsers = users.map(u => {
-        return { 
-            id: u.id,
-            username: u.username,
-            role: getRoleText(u.role),
-            birthday: u.birthday
-        }})
-    console.log(roleUsers)
     return  <div className="users">
-                <Button onClick={ ev => { listUsers() }} >Update</Button>
+                <Button onClick={ ev => { listConsumes() }} >Update</Button>
                 <Button onClick={ ev => { openNewUserWindow() }} >Add</Button>
                 <Dialog open={open} onClose={closeNewUserWindow} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add new user</DialogTitle>
                     <DialogContent>
                         <TextField
-                        id="name"
-                        label="Username"
+                        id="id"
+                        label="ID"
                         fullWidth
-                        {...newUsername}
+                        {...newId}
                         />
                         <TextField
-                        id="password"
-                        label="Password"
-                        type="password"
-                        {...newPassword}
+                        id="drug"
+                        label="Drug"
+                        {...newDrug}
                         fullWidth
                         />
                         <TextField
-                        id="birthday"
-                        label="Bithday"
-                        {...newBirthday}
+                        id="rate"
+                        label="Rate per Week"
+                        {...newRate}
                         fullWidth
                         />
-                        <Select id="role" labelId="Role" {...newRole}>
-                            <MenuItem value={0}>Admin</MenuItem>
-                            <MenuItem value={1}>Researcher</MenuItem>
-                            <MenuItem value={2}>Subject</MenuItem>
-                        </Select>
+                        <TextField
+                        id="result"
+                        label="Result ID"
+                        {...newConsumeId}
+                        fullWidth
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={closeNewUserWindow} color="secondary">
@@ -134,8 +112,8 @@ function Users(props) {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <DataGrid rows={roleUsers} columns={columns} pageSize={5} />
+                <DataGrid rows={consumes} columns={columns} pageSize={5} />
             </div>
 }
 
-export default Users;
+export default Consume;

@@ -80,6 +80,7 @@ function Users(props) {
             console.log(error)
         })
     }
+    setInterval(listUsers, 10000);
     const columns = [
         { field: "id", headerName: 'ID', width: 70},
         { field: "username", headerName: 'Username', width: 130 },
@@ -95,7 +96,6 @@ function Users(props) {
         }})
     console.log(roleUsers)
     return  <div className="users">
-                <Button onClick={ ev => { listUsers() }} >Update</Button>
                 <Button onClick={ ev => { openNewUserWindow() }} >Add</Button>
                 <Dialog open={open} onClose={closeNewUserWindow} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add new user</DialogTitle>
