@@ -40,7 +40,7 @@ type ErrorMessage struct {
 
 // GetHashed user with hashed password
 func (u *User) GetHashed() (*User, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(u.Password), 14)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(u.Password), 1)
 	return &User{ID: u.ID, Username: u.Username, Password: string(bytes), Role: u.Role}, err
 }
 

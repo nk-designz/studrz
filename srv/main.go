@@ -41,7 +41,7 @@ func main() {
 	j := jaegertracing.New(e, nil)
 	defer j.Close()
 	// Add /metrics Endpoint
-	p := prometheus.NewPrometheus("echo", nil)
+	p := prometheus.NewPrometheus(AppName, nil)
 	p.Use(e)
 
 	SetAdminUser(db, c)
