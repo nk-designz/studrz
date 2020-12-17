@@ -44,7 +44,48 @@ Configuration is done via environment variables.
 | * JAEGER_AGENT_PORT | 6831 |
 ```*``` Optional for Jaeger tracing
 #### API Docs
-_still in construction_
+```yaml
+routes:
+  "/":
+    description: returns a list of all routes
+    methods: GET
+  "/api":
+    description: returns a list of all routes
+    methods: GET
+  "/api/consume":
+    description: returns a list of consumes
+    methods: GET
+  "/api/consume/:id":
+    description: returns a consume by it's id
+    methods:
+    - GET
+    - POST
+    - DELETE
+  "/api/result":
+    description: returns a list of all results
+    methods: GET
+  "/api/result/:id":
+    description: returns a result by it's id
+    methods:
+    - GET
+    - POST
+    - DELETE
+  "/api/result/:id/consume":
+    description: returns a list of a consumes by it's result id
+    methods: GET
+  "/api/user":
+    description: returns a list of all registered users
+    methods: GET
+  "/api/user/:id":
+    description: returns a user by it's id
+    methods:
+    - GET
+    - POST
+    - DELETE
+  "/api/user/:id/result":
+    description: returns a list of a results by it's user id
+    methods: GET
+```
 ### UI
 A user-friendly React-app.
 _Still in construction_
