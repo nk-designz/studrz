@@ -2,6 +2,9 @@
 A neat little school project with the goal of learning database-integration into a server-application.
 The name has no meaning whatsoever.
 
+![ui](assets/ui.png)
+_Listing of users_
+
 ## Building from source
 ### Prerequisites
 * docker
