@@ -20,7 +20,6 @@ var (
 // ListStatistic returns a statistic
 func ListStatistic(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var stList []Statistic
 		if err := db.Table("statistics").Where("deleted_at IS NULL").Scan(&stList); err != nil {
 			return c.JSON(

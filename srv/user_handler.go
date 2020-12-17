@@ -12,7 +12,6 @@ import (
 // ListUsers get a specific user
 func ListUsers(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var users []*User
 		if err := db.Table("users").Order("id ASC").Scan(&users).Error; err != nil {
 			return c.JSON(
@@ -34,7 +33,6 @@ func ListUsers(db *gorm.DB) echo.HandlerFunc {
 // GetUser get a specific user
 func GetUser(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id := c.Param("id")
 		var user User
 		if err := db.Table("users").Where("id = ?", id).Scan(&user).Error; err != nil {
@@ -55,7 +53,6 @@ func GetUser(db *gorm.DB) echo.HandlerFunc {
 // CreateUser create a user
 func CreateUser(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		user := new(User)
 		if err := c.Bind(user); err != nil {
 			return c.JSON(
@@ -99,7 +96,6 @@ func CreateUser(db *gorm.DB) echo.HandlerFunc {
 // DeleteUser deletes a user
 func DeleteUser(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return c.JSON(

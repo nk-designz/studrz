@@ -31,7 +31,10 @@ func main() {
 	e.Use(
 		middleware.Logger(),
 		middleware.Recover(),
-		middleware.CORS(),
+		middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{"*"},
+			AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
+		}),
 		middleware.BasicAuth(
 			DatabaseBasicAuth(db),
 		),

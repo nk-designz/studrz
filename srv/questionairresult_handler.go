@@ -12,7 +12,6 @@ import (
 // ListQuestionairResult returns a list of QRs
 func ListQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var qrList []*QuestionairResult
 		db.Table("questionair_results").Where("deleted_at IS NULL").Order("id ASC").Scan(&qrList)
 		return c.JSON(http.StatusOK, qrList)
@@ -22,7 +21,6 @@ func ListQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 // GetQuestionairResult returns a specific QRs
 func GetQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return c.JSON(
@@ -43,7 +41,6 @@ func GetQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 // CreateQuestionairResult what do u think
 func CreateQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		qr := new(QuestionairResult)
 		if err := c.Bind(&qr); err != nil {
 			fmt.Println(err)
@@ -64,7 +61,6 @@ func CreateQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 // DeleteQuestionairResult deletes a specific QR
 func DeleteQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			return c.JSON(
@@ -86,7 +82,6 @@ func DeleteQuestionairResult(db *gorm.DB) echo.HandlerFunc {
 // GetQRByUser returns all qr of a user
 func GetQRByUser(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set(echo.HeaderAccessControlAllowOrigin, "*")
 		var qList []QuestionairResult
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
