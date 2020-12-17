@@ -2,7 +2,7 @@ up:
 	docker-compose -f ./deploy/docker-compose.yml up -d
 
 build:
-	docker-compose build -f ./deploy/docker-compose.yml
+	docker-compose -f ./deploy/docker-compose.yml build
 
 go-build:
 	cd ./srv
