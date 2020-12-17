@@ -1,7 +1,7 @@
 up:
-	docker-compose up -f ./deploy/docker-compose.yml
+	docker-compose up -f ./deploy/docker-compose.yml -d
 
-docker-build:
+build:
 	docker-compose build -f ./deploy/docker-compose.yml
 
 go-build:
