@@ -10,11 +10,11 @@ type StatisticFunc func(*Statistic, []QuestionairResult) error
 // Statistic type
 type Statistic struct {
 	gorm.Model
-	ID       uint64  `json:"id"`
-	Calc     string  `json:"calc"`
-	Value    float64 `json:"value"`
-	Key      string  `json:"key"`
-	Findings uint    `json:"findings"`
+	ID         uint64  `json:"id"`
+	Calc       string  `json:"calc"`
+	Value      float64 `json:"value"`
+	Key        string  `json:"key"`
+	Findings   uint    `json:"findings"`
 }
 
 // Calculate the statistic
