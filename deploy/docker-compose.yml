@@ -28,6 +28,11 @@ services:
     - "42069:42069"
     links:
     - db
+  ui:
+    build: ../ui
+    restart: always
+    ports:
+    - "3000:80"
 
 networks:
   default:

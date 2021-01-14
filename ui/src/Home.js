@@ -10,6 +10,7 @@ import Users from './Users';
 import Results from './Results';
 import './Home.css'
 import Consume from './Consume';
+import Statistic from './Statistic';
 
 function a11yProps(index) {
     return {
@@ -59,6 +60,7 @@ function Home(props) {
                     <Tab label="Users" {...a11yProps(0)} />
                     <Tab label="Results" {...a11yProps(1)} />
                     <Tab label="Consumes" {...a11yProps(2)} />
+                    <Tab label="Statistics" {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
@@ -69,6 +71,9 @@ function Home(props) {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <Consume></Consume>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <Statistic></Statistic>
             </TabPanel>
         </div>
 }
