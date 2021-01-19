@@ -88,8 +88,6 @@ routes:
 ```
 ### UI
 A user-friendly React-app.
-_Still in construction_
-```bash
-cd ui; 
-npm start
+after start of the docker containers you may go to the [ui](http://localhost:3000/)
+Standard User is ```admin``` with the password ```start-123```
 ```
