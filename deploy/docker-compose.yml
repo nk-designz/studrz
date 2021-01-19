@@ -31,6 +31,9 @@ services:
   ui:
     build: ../ui
     restart: always
+    environment:
+    - "API_HOST=localhost:42069"
+    - "API_PROTO=http"
     ports:
     - "3000:80"
 
